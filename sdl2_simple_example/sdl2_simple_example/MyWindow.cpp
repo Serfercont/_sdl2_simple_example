@@ -1,6 +1,9 @@
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_opengl.h>
 #include "MyWindow.h"
+#include "imgui.h"
+#include "imgui_impl_sdl2.h"
+#include "imgui_impl_opengl3.h"
 using namespace std;
 
 MyWindow::MyWindow(const std::string& title, int w, int h) : _width(w), _height(h) {
@@ -17,14 +20,26 @@ MyWindow::MyWindow(const std::string& title, int w, int h) : _width(w), _height(
     if (!_ctx) throw exception(SDL_GetError());
     if (SDL_GL_MakeCurrent(_window, _ctx) != 0) throw exception(SDL_GetError());
     if (SDL_GL_SetSwapInterval(1) != 0) throw exception(SDL_GetError());
+
+    ImGui::CreateContext();
+    ImGui_ImplSDL2_InitForOpenGL(_window, _ctx);
+    ImGui_ImplOpenGL3_Init("#version 130");
 }
 
 MyWindow::~MyWindow() {
+    ImGui_ImplSDL2_Shutdown();
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui::DestroyContext();
     SDL_GL_DeleteContext(_ctx);
     SDL_DestroyWindow(static_cast<SDL_Window*>(_window));
 }
 
 void MyWindow::swapBuffers() const {
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
     SDL_GL_SwapWindow(static_cast<SDL_Window*>(_window));
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 

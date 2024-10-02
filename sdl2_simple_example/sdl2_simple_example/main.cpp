@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include <SDL2/SDL_events.h>
 #include "MyWindow.h"
+#include "imgui_impl_sdl2.h"
 using namespace std;
 
 using hrclock = chrono::high_resolution_clock;
@@ -43,6 +44,10 @@ static bool processEvents() {
 		switch (event.type) {
 		case SDL_QUIT:
 			return false;
+			break;
+		default:
+			ImGui_ImplSDL2_ProcessEvent(&event);
+			break;
 		}
 	}
 	return true;
