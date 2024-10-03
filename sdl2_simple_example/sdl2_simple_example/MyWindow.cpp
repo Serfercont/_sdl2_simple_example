@@ -1,4 +1,5 @@
 #include <SDL2/SDL_video.h>
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include "MyWindow.h"
 #include "imgui.h"
@@ -38,8 +39,20 @@ void MyWindow::swapBuffers() const {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
-    SDL_GL_SwapWindow(static_cast<SDL_Window*>(_window));
+
+    if (ImGui::BeginMainMenuBar()) {
+        if (ImGui::BeginMenu("Menu")) {
+            if (ImGui::MenuItem("Adeu")) {
+                SDL_Event quit_event;
+                quit_event.type = SDL_QUIT;
+                SDL_PushEvent(&quit_event);
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMainMenuBar();
+    }
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    SDL_GL_SwapWindow(static_cast<SDL_Window*>(_window));
 }
 
