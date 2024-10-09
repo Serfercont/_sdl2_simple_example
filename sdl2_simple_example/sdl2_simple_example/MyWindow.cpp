@@ -41,11 +41,79 @@ void MyWindow::swapBuffers() const {
     ImGui::NewFrame();
 
     if (ImGui::BeginMainMenuBar()) {
-        if (ImGui::BeginMenu("Menu")) {
-            if (ImGui::MenuItem("Adeu")) {
+        if (ImGui::BeginMenu("File")) {
+            if (ImGui::MenuItem("New Scene")) {
+
+            }
+            if (ImGui::MenuItem("Open Scene")) {
+
+            }
+            if (ImGui::MenuItem("Save")) {
+
+            }
+            if (ImGui::MenuItem("Save As")) {
+
+            }
+            if (ImGui::MenuItem("Build Settings")) {
+
+            }
+            if (ImGui::MenuItem("Exit")) {
                 SDL_Event quit_event;
                 quit_event.type = SDL_QUIT;
                 SDL_PushEvent(&quit_event);
+            }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Edit")) {
+            if (ImGui::MenuItem("Select"))
+            {
+
+            }
+            if (ImGui::MenuItem("Deselect")) {
+
+            }
+            if (ImGui::MenuItem("Duplicate")) {
+
+            }
+            if (ImGui::MenuItem("Delete")) {
+
+            }
+            if (ImGui::MenuItem("Project Settings")) {
+
+            }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Assets")) {
+            if (ImGui::MenuItem("Create")) {
+
+            }
+            if (ImGui::MenuItem("Import Asset"))
+            {
+
+            }
+            if (ImGui::MenuItem("Import Package")) {
+
+            }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("GameObjects")) {
+            if (ImGui::MenuItem("Test"))
+            {
+
+            }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Component")) {
+            if (ImGui::MenuItem("Test"))
+            {
+
+            }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Window")) {
+            if (ImGui::MenuItem("Test"))
+            {
+
             }
             ImGui::EndMenu();
         }
